@@ -3,8 +3,11 @@ package com.example.movie;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 
+import com.example.movie.Database.DatabaseHelper;
 import com.example.movie.Fragments.Login;
 
 public class MainActivity extends AppCompatActivity {

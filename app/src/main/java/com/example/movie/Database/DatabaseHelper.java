@@ -2,6 +2,7 @@ package com.example.movie.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -39,6 +40,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long data = db.insert(TABLE_NAME, null, values);
         db.close();
         return data;
+    }
+
+    public boolean checkUser(String name,String pass) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selection = NAME + " = ? " +  " AND " + PASSWORD + " = ? ";
+        String[] selectionArgs = {name,pass};
+        String[] columns = {NAME,PASSWORD};
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+        int cursorCount = cursor.getCount();
+        cursor.close();
+        db.close();
+
+        if (cursorCount > 0) {
+            return true;
+        }
+        return false;
     }
 
 }
