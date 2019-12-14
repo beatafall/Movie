@@ -17,16 +17,34 @@
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
+
+    <EditText
+        android:id="@+id/searchmovie"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:hint="Enter the movie title"
+        app:layout_constraintEnd_toStartOf="@+id/btnsearch"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnsearch"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Search"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listmovies"
         android:layout_width="406dp"
-        android:layout_height="462dp"
+        android:layout_height="415dp"
+        app:layout_constraintTop_toBottomOf="@+id/searchmovie"
         app:layout_constraintBottom_toTopOf="@+id/bottomnav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

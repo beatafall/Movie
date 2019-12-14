@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.movie.Database.DatabaseHelper;
@@ -22,7 +23,8 @@ import com.example.movie.R;
 
 public class Login extends Fragment {
     DatabaseHelper myDB;
-    Button btn_login, btn_register;
+    Button btn_login;
+    TextView tv_register;
     EditText et_name, et_password;
 
     @Override
@@ -32,7 +34,7 @@ public class Login extends Fragment {
         v = inflater.inflate(R.layout.fragment_login, container, false);
         myDB= new DatabaseHelper(getActivity());
         btn_login=v.findViewById(R.id.btnlogin);
-        btn_register=v.findViewById(R.id.btnregister);
+        tv_register=v.findViewById(R.id.register);
         et_name=v.findViewById(R.id.username);
         et_password=v.findViewById(R.id.password);
         btn_login.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +58,7 @@ public class Login extends Fragment {
             }
         });
 
-        btn_register.setOnClickListener(new View.OnClickListener() {
+        tv_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Register register=new Register();

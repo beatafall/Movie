@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.movie.API.Example;
@@ -41,6 +43,8 @@ public class Home extends Fragment {
     LinearLayoutManager layoutManager;
     MovieListAdapter movieListAdapter;
     Context context;
+    EditText et_searchmovie;
+    Button btn_search;
 
     private static final int START_PAGE = 1;
     private int TOTAL_PAGE = 20;
@@ -58,11 +62,13 @@ public class Home extends Fragment {
         v = inflater.inflate(R.layout.fragment_home, container, false);
 
         recyclerView = v.findViewById(R.id.listmovies);
+        et_searchmovie= v.findViewById(R.id.searchmovie);
+        btn_search = v.findViewById(R.id.btnsearch);
 
         movieList = new ArrayList<>();
         movieListAdapter = new MovieListAdapter(movieList, context);
 
-        layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -70,9 +76,7 @@ public class Home extends Fragment {
         movieListAdapter.notifyDataSetChanged();
 
 
-
-        try {
-            recyclerView.addOnScrollListener(new PaginationScrollListener(layoutManager) {
+        recyclerView.addOnScrollListener(new PaginationScrollListener(layoutManager) {
                 @Override
                 protected void loadMoreItems() {
                     isLoading = true;
@@ -121,17 +125,30 @@ public class Home extends Fragment {
                     Toast.makeText(getActivity(), "Error Fetching data", Toast.LENGTH_SHORT).show();
                 }
             });
-        } catch (Exception e) {
-            Log.d("Error", e.getMessage());
-            Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
-        }
-
-
-
-
-
 
        // loadMovies();
+
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String searchedMovie = et_searchmovie.getText().toString();
+                Call<Example> call = getMovie.getAllData(searchedMovie);
+                        call.enqueue(new Callback<Example>() {
+                            @Override
+                            public void onResponse(Call<Example> call, Response<Example> response) {
+                                List<Result> movie = response.body().getResults();
+                                recyclerView.setAdapter(new MovieListAdapter(movie, getActivity().getApplicationContext()));
+                            }
+
+                            @Override
+                            public void onFailure(Call<Example> call, Throwable t) {
+                                Log.d("error", t.getMessage());
+                                Toast.makeText(getActivity(), "Error Fetching data", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }
+        });
 
         BottomNavigationView bottomNavigationView = v.findViewById(R.id.bottomnav);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
@@ -197,7 +214,7 @@ public class Home extends Fragment {
     }
 
     private void loadNextPage() {
-        try {
+
         Call<Example> call = getMovie.getPopularMovies(Constans.API_KEY,CURRENT_PAGE);
         call.enqueue(new Callback<Example>() {
             @Override
@@ -221,12 +238,7 @@ public class Home extends Fragment {
                 Toast.makeText(getActivity(), "Error Fetching data", Toast.LENGTH_SHORT).show();
             }
         });
-    } catch(Exception e)
 
-    {
-        Log.d("Error", e.getMessage());
-        Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
-    }
 
 }
 
