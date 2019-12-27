@@ -5,7 +5,7 @@ xmlns:tools="http://schemas.android.com/tools"
 android:id="@+id/relativeLayout"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-tools:context=".Fragments.Favorites">
+tools:context=".Fragments.NowPlaying">
 
 <com.google.android.material.bottomnavigation.BottomNavigationView
     android:id="@+id/bottomnav"
@@ -17,15 +17,13 @@ tools:context=".Fragments.Favorites">
 
 </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/favoritelistmovies"
-    android:layout_width="406dp"
-    android:layout_height="465dp"
-    app:layout_constraintBottom_toTopOf="@+id/bottomnav"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="1.0"
-    app:layout_constraintStart_toStartOf="parent" />
-
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/nowplayingmovies"
+        android:layout_width="406dp"
+        android:layout_height="465dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomnav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

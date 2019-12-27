@@ -1,10 +1,12 @@
 package com.example.movie.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,9 +23,10 @@ import android.widget.Toast;
 
 import com.example.movie.API.Example;
 import com.example.movie.API.Result;
+import com.example.movie.Activity.Details;
 import com.example.movie.Adapters.MovieListAdapter;
 import com.example.movie.Client;
-import com.example.movie.Constans;
+import com.example.movie.Classes.Constans;
 import com.example.movie.GetMovie;
 import com.example.movie.PaginationScrollListener;
 import com.example.movie.R;
@@ -150,67 +153,52 @@ public class Home extends Fragment {
                     }
         });
 
+
+        Bundle bundle = this.getArguments();
+        final int id= bundle.getInt("id");
+
         BottomNavigationView bottomNavigationView = v.findViewById(R.id.bottomnav);
-        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+        bottomNavigationView.setSelectedItemId(R.id.home);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case  R.id.home:
+                        break;
+                    case R.id.favorite:
+                        Bundle bundle2 = new Bundle();
+                        bundle2.putInt("id",id);
+                        Favorites favorites = new Favorites();
+                        favorites.setArguments(bundle2);
+                        FragmentTransaction ft2 = getFragmentManager().beginTransaction();
+                        ft2.replace(R.id.fragment_container,favorites);
+                        ft2.addToBackStack(null);
+                        ft2.commit();
+                        break;
+                    case R.id.profile:
+                        Bundle bundleProfile = new Bundle();
+                        bundleProfile.putInt("id",id);
+                        Profile profileFragment = new Profile();
+                        profileFragment.setArguments(bundleProfile);
+                        FragmentTransaction fr = getFragmentManager().beginTransaction();
+                        fr.replace(R.id.fragment_container,profileFragment);
+                        fr.commit();
+                        break;
+                    case R.id.nowplay:
+                        Bundle bundle3 = new Bundle();
+                        bundle3.putInt("id", id);
+                        NowPlaying now = new NowPlaying();
+                        now.setArguments(bundle3);
+                        FragmentTransaction ft3 = getFragmentManager().beginTransaction();
+                        ft3.replace(R.id.fragment_container, now);
+                        ft3.commit();
+                        break;
+                }
+                return true;
+            }
+        });
 
         return v;
-    }
-
-    private void loadMovies() {
-        try {
-            recyclerView.addOnScrollListener(new PaginationScrollListener(layoutManager) {
-                @Override
-                protected void loadMoreItems() {
-                    isLoading = true;
-                    CURRENT_PAGE += 1;
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            loadNextPage();
-                        }
-                    }, 1000);
-                }
-
-                @Override
-                public int getTotalPageCount() {
-                    return TOTAL_PAGE;
-                }
-
-                @Override
-                public boolean isLastPage() {
-                    return isLastPage;
-                }
-
-                @Override
-                public boolean isLoading() {
-                    return isLoading;
-                }
-            });
-
-            Call<Example> call = getMovie.getPopularMovies(Constans.API_KEY, START_PAGE);
-            call.enqueue(new Callback<Example>() {
-                @Override
-                public void onResponse(Call<Example> call, Response<Example> response) {
-                    List<Result> movies = response.body().getResults();
-                    recyclerView.setAdapter(new MovieListAdapter(movies, getActivity().getApplicationContext()));
-
-                    if(CURRENT_PAGE <= TOTAL_PAGE ){
-                        movieListAdapter.addBottemIttem();
-                    }else{
-                        isLastPage = true;
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Example> call, Throwable t) {
-                    Log.d("error", t.getMessage());
-                    Toast.makeText(getActivity(), "Error Fetching data", Toast.LENGTH_SHORT).show();
-                }
-            });
-        } catch (Exception e) {
-            Log.d("Error", e.getMessage());
-            Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
-        }
     }
 
     private void loadNextPage() {
@@ -241,28 +229,5 @@ public class Home extends Fragment {
 
 
 }
-
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                    Fragment selectedFragment=null;
-
-                    switch (menuItem.getItemId()){
-                        case R.id.home:
-                            selectedFragment = new Home();
-                            break;
-                        case R.id.favorite :
-                            selectedFragment=new Favorites();
-                            break;
-                        case R.id.profile:
-                            selectedFragment=new Profile();
-                            break;
-                    }
-                    getActivity().getSupportFragmentManager().
-                            beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
-                    return true;
-                }
-            };
 
 }

@@ -7,7 +7,6 @@ public class Client {
     public static final String BASE_URL = "http://api.themoviedb.org/3/";
     public static Retrofit retrofit = null;
 
-
     public static Retrofit getClient(){
 
         if (retrofit == null){
@@ -18,4 +17,6 @@ public class Client {
         }
         return retrofit;
     }
+
+
 }

@@ -14,4 +14,10 @@
             android:id="@+id/profile"
             android:icon="@drawable/ic_sentiment_satisfied_black_24dp"
             android:title="Profile"/>
+
+        <item
+            android:id="@+id/nowplay"
+            android:icon="@drawable/ic_videocam_black_24dp"
+            android:title="In cinema"/>
+
 </menu>

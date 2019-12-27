@@ -42,6 +42,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Name" />
 
+
     <Button
         android:id="@+id/RegistrationButton"
         android:layout_width="94dp"
