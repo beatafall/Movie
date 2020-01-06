@@ -1,42 +1,27 @@
 package com.example.movie.Fragments;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.movie.API.MovieImages;
-import com.example.movie.API.Poster;
 import com.example.movie.API.Result;
-import com.example.movie.Adapters.ImagesAdapter;
 import com.example.movie.Adapters.MovieListAdapter;
-import com.example.movie.Adapters.RelatedMoviesAdapter;
-import com.example.movie.Classes.Constans;
-import com.example.movie.Client;
 import com.example.movie.Database.FavoritesDatabase;
-import com.example.movie.GetMovie;
 import com.example.movie.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class Favorites extends Fragment {
 

@@ -1,4 +1,4 @@
-package com.example.movie;
+package com.example.movie.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -9,6 +9,7 @@ import android.provider.ContactsContract;
 
 import com.example.movie.Database.DatabaseHelper;
 import com.example.movie.Fragments.Login;
+import com.example.movie.R;
 
 public class MainActivity extends AppCompatActivity {
 

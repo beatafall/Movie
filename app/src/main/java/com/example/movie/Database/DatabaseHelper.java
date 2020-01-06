@@ -5,11 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Bitmap;
 
 import androidx.annotation.Nullable;
-
-import com.example.movie.API.Result;
 import com.example.movie.Classes.User;
 
 import java.io.ByteArrayOutputStream;
@@ -25,9 +22,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String PASSWORD="PASSWORD";
     public static final String IMAGE="IMAGE";
     public static final String FAVORITES="FAVORITES";
-
-    private ByteArrayOutputStream byteArrayOutputStream;
-    private byte[] imageInByte;
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -113,24 +107,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return users;
     }
 
-    public String getName() {
-        ArrayList<User> userlist = new ArrayList<>();
-        SQLiteDatabase db = this.getWritableDatabase();
-        String[] columns = {NAME};
-        String selection = NAME + " = ? ";
-        Cursor cursor = db.query(USER_TABLE, columns, null, null, null, null, null);
-        StringBuffer buffer = new StringBuffer();
-        //cursor.moveToFirst();
-        while (cursor.moveToNext()) {
-            String name = cursor.getString(cursor.getColumnIndex(NAME));
-            //for (User u : userlist) {
-              //  if (name == u.getName()) {
-                    buffer.append(name);
-               // }
-           // }
+    public List<User> getUserImg() {
+        List<User> users = new ArrayList<>();
+        String selectQuery = "SELECT IMAGE FROM " + USER_TABLE;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c.moveToFirst()) {
+            do {
+                User u = new User();
+                u.setImage(c.getString(c.getColumnIndex(IMAGE)));
+
+                users.add(u);
+            } while (c.moveToNext());
         }
-            return buffer.toString();
+        return users;
     }
+
 
     public int updatePassword(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -146,6 +140,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(FAVORITES, user.getFavorite());
         db.insert(USER_TABLE, null, values);
         db.close();
+    }
+
+    public long addUserWithImage(User user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(NAME, user.getName());
+        values.put(PASSWORD, user.getPassword());
+        values.put(IMAGE, user.getImage());
+        long result=db.insert(USER_TABLE, null, values);
+        return result;
     }
 
 }

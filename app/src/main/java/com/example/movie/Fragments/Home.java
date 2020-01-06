@@ -1,7 +1,6 @@
 package com.example.movie.Fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,12 +22,11 @@ import android.widget.Toast;
 
 import com.example.movie.API.Example;
 import com.example.movie.API.Result;
-import com.example.movie.Activity.Details;
 import com.example.movie.Adapters.MovieListAdapter;
-import com.example.movie.Client;
+import com.example.movie.Retrofit.Client;
 import com.example.movie.Classes.Constans;
-import com.example.movie.GetMovie;
-import com.example.movie.PaginationScrollListener;
+import com.example.movie.Interface.GetMovie;
+import com.example.movie.Classes.PaginationScrollListener;
 import com.example.movie.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

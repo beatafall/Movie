@@ -1,30 +1,18 @@
 package com.example.movie.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
-import com.bumptech.glide.Glide;
-import com.example.movie.API.Example;
 import com.example.movie.API.MovieImages;
 import com.example.movie.API.MovieVideo;
 import com.example.movie.API.MovieVideoResult;
@@ -32,22 +20,15 @@ import com.example.movie.API.Poster;
 import com.example.movie.API.RelatedMovies;
 import com.example.movie.API.RelatedMoviesResult;
 import com.example.movie.API.Result;
-import com.example.movie.Adapters.DetailsAdapter;
 import com.example.movie.Adapters.ImagesAdapter;
-import com.example.movie.Adapters.MovieListAdapter;
 import com.example.movie.Adapters.RelatedMoviesAdapter;
-import com.example.movie.BuildConfig;
 import com.example.movie.Classes.Constans;
 import com.example.movie.Classes.User;
 import com.example.movie.Classes.WebViewController;
-import com.example.movie.Client;
+import com.example.movie.Retrofit.Client;
 import com.example.movie.Database.DatabaseHelper;
 import com.example.movie.Database.FavoritesDatabase;
-import com.example.movie.Fragments.Favorites;
-import com.example.movie.Fragments.Home;
-import com.example.movie.Fragments.Login;
-import com.example.movie.GetMovie;
-import com.example.movie.PaginationScrollListener;
+import com.example.movie.Interface.GetMovie;
 import com.example.movie.R;
 
 import java.util.ArrayList;

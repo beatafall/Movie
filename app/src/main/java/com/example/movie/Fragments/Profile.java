@@ -1,10 +1,12 @@
 package com.example.movie.Fragments;
 
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -23,6 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.movie.Classes.User;
 import com.example.movie.Database.DatabaseHelper;
@@ -30,7 +33,11 @@ import com.example.movie.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
+import java.util.List;
+
 import static android.app.Activity.RESULT_OK;
+import static android.net.Uri.parse;
+import static com.example.movie.Database.DatabaseHelper.IMAGE;
 
 public class Profile extends Fragment {
 
@@ -40,6 +47,7 @@ public class Profile extends Fragment {
     ImageView image;
     DatabaseHelper db;
     User user;
+    List<User> userimg;
 
     private static final int RESULT_LOAD_IMAGE=1;
     String path;
@@ -98,8 +106,10 @@ public class Profile extends Fragment {
             @Override
             public void onClick(View v) {
                 db.insertImage(user);
+                Log.d("img",user.getImage());
             }
         });
+
 
         BottomNavigationView bottomNavigationView = v.findViewById(R.id.bottomnav);
         bottomNavigationView.setSelectedItemId(R.id.profile);
@@ -152,6 +162,7 @@ public class Profile extends Fragment {
             Uri selectedImage = data.getData();
             path = selectedImage.toString();
             image.setImageURI(selectedImage);
+            user.setImage(path);
         }
     }
 

@@ -1,4 +1,4 @@
-package com.example.movie;
+package com.example.movie.Classes;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;

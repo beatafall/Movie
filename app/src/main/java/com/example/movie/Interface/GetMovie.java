@@ -1,4 +1,4 @@
-package com.example.movie;
+package com.example.movie.Interface;
 
 import com.example.movie.API.Example;
 import com.example.movie.API.MovieImages;
